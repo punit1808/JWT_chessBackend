@@ -41,8 +41,8 @@ public class OAuthSuccessHandler implements AuthenticationSuccessHandler {
         jwtCookie.setSecure(true); // Required for SameSite=None
         jwtCookie.setPath("/");
         jwtCookie.setMaxAge(24 * 60 * 60);
-        jwtCookie.setDomain("jwt-chess-frontend.vercel.app"); // Optional for dev
-        jwtCookie.setAttribute("SameSite", "None"); // Add this line if possible (Servlet 6 or newer)
+        // jwtCookie.setDomain("jwt-chess-frontend.vercel.app"); // Optional for dev
+        // jwtCookie.setAttribute("SameSite", "None"); // Add this line if possible (Servlet 6 or newer)
         response.addCookie(jwtCookie);
 
 
