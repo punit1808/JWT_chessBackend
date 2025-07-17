@@ -55,7 +55,7 @@ public class SecurityConfig {
         .anyRequest().authenticated()
     .and()
     .oauth2Login()
-    .defaultSuccessUrl("http://localhost:3000/Start", true)
+    .defaultSuccessUrl("https://jwt-chess-frontend.vercel.app/Start", true)
     .and()
     .logout()
         .logoutUrl("/logout")
