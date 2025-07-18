@@ -3,6 +3,8 @@ package com.chessmaster.Config;
 
 import java.io.IOException;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -11,9 +13,12 @@ import org.springframework.stereotype.Component;
 import com.chessmaster.jwt.JwtService;
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+// import jakarta.servlet.ServletException;
+// import jakarta.servlet.http.HttpServletRequest;
+// import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class OAuthSuccessHandler implements AuthenticationSuccessHandler {
@@ -35,18 +40,19 @@ public class OAuthSuccessHandler implements AuthenticationSuccessHandler {
 
         String token = jwtService.generateToken(email);
 
-        // Create secure HTTP-only cookie
-        Cookie jwtCookie = new Cookie("jwt", token);
-        jwtCookie.setHttpOnly(true);
-        jwtCookie.setSecure(true); // Required for SameSite=None
-        jwtCookie.setPath("/");
-        jwtCookie.setMaxAge(24 * 60 * 60);
-        // jwtCookie.setDomain("jwt-chess-frontend.vercel.app"); // Optional for dev
-        // jwtCookie.setAttribute("SameSite", "None"); // Add this line if possible (Servlet 6 or newer)
-        response.addCookie(jwtCookie);
+        // ✅ Create ResponseCookie with SameSite=None
+        ResponseCookie jwtCookie = ResponseCookie.from("jwt", token)
+            .httpOnly(true)
+            .secure(true)
+            .path("/")
+            .maxAge(24 * 60 * 60)
+            .sameSite("None") // 🔥 Critical for cross-site cookies
+            .build();
 
+        // ✅ Add to response header
+        response.setHeader(HttpHeaders.SET_COOKIE, jwtCookie.toString());
 
-        // Redirect to frontend without token in URL
+        // ✅ Redirect after setting cookie
         response.sendRedirect("https://jwt-chess-frontend.vercel.app/");
     }
 }
