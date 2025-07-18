@@ -60,7 +60,7 @@ public class SecurityConfig {
     .logout()
         .logoutUrl("/logout")
         .logoutSuccessHandler((request, response, authentication) -> {
-            ResponseCookie cookie = ResponseCookie.from("token", "")
+            ResponseCookie cookie = ResponseCookie.from("jwt", "")
                 .httpOnly(true)
                 .path("/")
                 .maxAge(0)
