@@ -51,8 +51,7 @@ public class SecurityConfig {
     .cors(Customizer.withDefaults()) // Enable CORS
     .csrf().disable() // (optional) if you're not using CSRF protection
     .authorizeHttpRequests()
-        .requestMatchers("/logout", "/login/**", "/oauth2/**").permitAll()
-        .requestMatchers("wss/**").permitAll()
+        .requestMatchers("/logout", "/login/**", "/oauth2/**","wss/**").permitAll()
         .anyRequest().authenticated()
     .and()
     .oauth2Login()
