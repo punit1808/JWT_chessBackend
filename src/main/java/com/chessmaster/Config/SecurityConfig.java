@@ -81,7 +81,7 @@ public class SecurityConfig {
                     .allowedOrigins("http://localhost:3000","https://jwt-chess-frontend.vercel.app")
                     .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                     .allowCredentials(true)
-                    .allowedHeaders("*")
+                    .allowedHeaders("https://jwt-chess-frontend.vercel.app")
                     .exposedHeaders("Set-Cookie"); // Important for cookies
             }
         };
