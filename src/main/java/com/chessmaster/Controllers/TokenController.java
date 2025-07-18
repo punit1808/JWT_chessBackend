@@ -34,7 +34,7 @@ public class TokenController {
 
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletResponse response) {
-        ResponseCookie cookie = ResponseCookie.from("token", "")
+        ResponseCookie cookie = ResponseCookie.from("jwt", "")
             .httpOnly(true)
             .path("/")
             .maxAge(0)
