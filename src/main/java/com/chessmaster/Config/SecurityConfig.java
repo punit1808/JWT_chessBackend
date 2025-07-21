@@ -17,6 +17,8 @@ import org.springframework.security.config.Customizer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
+import com.chessmaster.Config.OAuthSuccessHandler;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -55,7 +57,7 @@ public class SecurityConfig {
         .anyRequest().authenticated()
     .and()
     .oauth2Login()
-    .defaultSuccessUrl("https://jwt-chess-frontend.vercel.app/Start", true)
+    .successHandler(successHandler)
     .and()
     .logout()
         .logoutUrl("/logout")
