@@ -53,7 +53,7 @@ public class OAuthSuccessHandler implements AuthenticationSuccessHandler {
         response.setHeader(HttpHeaders.SET_COOKIE, jwtCookie.toString());
 
         // ✅ Redirect after setting cookie
-        response.sendRedirect("https://jwt-chess-frontend.vercel.app/");
+        response.sendRedirect("https://jwt-chess-frontend.vercel.app/Start");
     }
 }
 
